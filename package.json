@@ -1,0 +1,14 @@
+{
+  "name": "cypress-automation-script",
+  "version": "1.0.0",
+  "description": "Cypress Automation framwrok For APimatic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Syed SUbtain",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^10.6.0"
+  }
+}
