@@ -20,6 +20,30 @@
 // -- This is a dual command --
 // Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
 //
+Cypress.Commands.add('versionTest', () => {
+    cy.get('#version-select')
+            .find('option')//finding all the avilable version in dropdown
+            .each(($opn)=>{
+                const optionText = $opn.text()
+                const urlText = optionText.replace(/\./g,'_') // replacing '.' with '_' in version text
+                cy.get('#version-select').select(optionText) //selecting the version on the abse of text
+                cy.url().should("include",urlText) // aserting the URL to include Version text
+                cy.languageTest()
+            })
+})
+
+Cypress.Commands.add('languageTest', () => {
+    cy.xpath('//*[@id="apimatic-widget"]/div/div/div[2]/div[1]/div/div[2]/ul').click() //click to open drop down
+    cy.get('.rc-menu.rc-menu-sub.rc-menu-vertical').find('li').its('length').then(len=>{ // find length of all available list items in drop down
+    cy.log(len)
+    for(let k=1;k<=len;k++)
+   {   cy.xpath('//*[@id="apimatic-widget"]/div/div/div[2]/div[1]/div/div[2]/ul').click({force:true})//click to open dropdown
+        cy.xpath('//*[@id="item_0$Menu"]/li['+ k +']').click({force:true})//clicking each element in dropdown items
+        cy.wait(2000)
+    }
+    })
+})
+
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
