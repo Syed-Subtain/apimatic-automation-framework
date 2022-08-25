@@ -1,6 +1,5 @@
-//const urls = ['https://developer.commandalkon.io/v/2_0_0', 'https://www.apimatic.io/apidocs/ocxfulfillmentservices/v/1_2_0','https://www.chargelogic.com/connect/developer/']
-import { testUrls } from '../../support/portalurl.js';
-Cypress.on("uncaught:exception", (err, runnable) => {
+import { testUrls } from '../../support/portalurl.js'; //importing Urls from a folder
+Cypress.on("uncaught:exception", (err, runnable) => {  //code to catch all uncaught exception
     // returning false here prevents Cypress from
     // failing the test
     return false;
@@ -10,14 +9,18 @@ describe("Apimatic Portal Testing",()=>{
     it("Should be able to iterate in different Versions of Portal Docs",()=>{
        
         cy.visit(url)
-        cy.get('body').then($Body=>
+       /* cy.get('body').then($Body=>
             {
                 if($Body.find('version-select'))
                 {
-                    cy.versionTest()
+         */
+        var flag = cy.ifElementExist()
+        cy.log(flag)
+        if(flag)
+        {           cy.versionTest() //custom command to test all portal versions
                 }
-                else{
-                    cy.languageTest()
+        else{
+                    cy.languageTest() //custom command to test all the languages 
 
                 }
             })
@@ -27,5 +30,4 @@ describe("Apimatic Portal Testing",()=>{
                 
                   
 
-    })
 })

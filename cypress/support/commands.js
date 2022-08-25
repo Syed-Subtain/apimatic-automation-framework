@@ -44,6 +44,31 @@ Cypress.Commands.add('languageTest', () => {
     })
 })
 
+Cypress.Commands.add( 'ifElementExist',() =>{
+    
+        cy.get('body').then($Body=>
+            {
+                try {
+                if($Body.find('.version-select'))
+                return true
+                }catch(error) {
+                    return false
+                }
+            })
+
+})
+
+Cypress.Commands.add( 'login',() =>{
+    
+    cy.visit('https://www.apimatic.io/')
+    cy.get('.mobmenu-right-bt > img').click()
+    cy.get('.menu-item-33390 > a').click()
+    cy.get('#Email').type('syed.subtain@apimatic.io')
+    cy.get('#js-onboarding-password-field').type('Welcome@1')
+    cy.get('.btn-primary').click()
+})
+
+
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
