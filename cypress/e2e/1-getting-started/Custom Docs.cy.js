@@ -1,3 +1,5 @@
+import 'cypress-wait-until';
+
 Cypress.on("uncaught:exception", (err, runnable) => {  //code to catch all uncaught exception
     // returning false here prevents Cypress from
     // failing the test
@@ -5,24 +7,55 @@ Cypress.on("uncaught:exception", (err, runnable) => {  //code to catch all uncau
   });
 describe("Apimatic Portal Custom Docs Testing",()=>{    
     it("Custom docs must be added and shown in preview",()=>{
-       cy.login()
-       cy.get(':nth-child(1) > .api-card > [ng-show="!apiGroupCardUIState.loading "] > .api-body > .team-button-div > .btn-generate').click()
+       //cy.login()
+       cy.visit('https://app-apimaticio-test-eus.azurewebsites.net/Account/Login')
+       cy.get('#Email').type('syed.subtain@apimatic.io')
+       cy.get('#js-onboarding-password-field').type('Welcome@1')
+       cy.get('.btn-primary').click()
+       cy.get(':nth-child(1) > .api-card > [ng-show="!apiGroupCardUIState.loading "] > .api-body > .team-button-div > .btn-generate').click({force: true})
        cy.wait(4000)
-       cy.xpath('/html/body/div[1]/div/div/code-gen/div/div[3]/ng-form/div[2]/a').contains('Proceed').click({force: true})
-       cy.xpath('/html/body/div[1]/div/div/code-gen/div/div[7]/ng-form/div[2]/div/api-portal-options/div[2]/div/a').invoke('removeAttr', 'target').click() //generating docs page
+       //cy.xpath('/html/body/div[1]/div/div/code-gen/div/div[3]/ng-form/div[2]/a').contains('Proceed').click({force: true})
+       cy.waitUntil(()=>cy.xpath('/html/body/div[1]/div/div/code-gen/div/div[3]/ng-form/div[2]/a').contains('Proceed').then(($ele)=>{
+        cy.wrap($ele).click()
+       }))
+       cy.xpath('/html/body/div[1]/div/div/code-gen/div/div[7]/ng-form/div[2]/div/api-portal-options/div[2]/div/a').invoke('removeAttr', 'target').click({force: true}) //generating docs page
        
        cy.get('.btn.btn-customize').invoke('removeAttr', 'target').click()
-       cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div/button').click({force: true})
-       cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div/ul/div[1]/li/a/div[2]').click() //creating new customs docs page
-       const random  = Math.floor(Math.random() * 10)
-       const pageName = "Test"+ random
-       const slug = "testingslug"+random 
        
-       cy.get(':nth-child(1) > .flex-col > .h-8').type(pageName)
-        cy.get('.relative > .flex-col > .h-8').type(slug)
-        cy.get('.z-10 > .justify-between > :nth-child(2)').click({force: true})
-        cy.get('.toastui-editor.md-mode').type("This is a testing mark down please Ignore.")//Entering text in markdown page
-        cy.get('#save-action-portal > .tooltip > .tooltip-trigger > .button-wrapper').click()//click on save button to save markdown text
+       const random  = Math.random()
+       for(let i=random; i<random+2;i++)
+       {
+        cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div/button').click({force: true})
+        //cy.get('.h-full > :nth-child(2) > div > .button-wrapper').click()
+        cy.get('.item-text').contains('Add Section').click()
+        const sectionName = "Sec"+ i
+      // const sectionSlug = "testingslug"+ i 
+        cy.get(':nth-child(1) > .flex-col > .h-8').type(sectionName)
+       // cy.get('.relative > .flex-col > .h-8').type(sectionSlug)
+        cy.get('button').contains('Done').click({force: true})
+        cy.wait(2000)
+        //cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[1]/div/div/div[1]/div[1]/div').contains(sectionName).find('button').click()
+       cy.get('button').contains('Save').click()
+        for(let j=random;j<random+2;j++)
+        {
+            cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div[1]/div[1]/div[2]/div/button').click({force: true})
+            cy.get('.item-text').contains('Add Page').click()
+
+            const pageName = "Page"+ j
+            cy.get(':nth-child(1) > .flex-col > .h-8').type(pageName)
+            cy.get('.z-10 > .justify-between > :nth-child(2)').click({force: true})
+            cy.get('.toastui-editor.md-mode').type("This is "+sectionName+"and"+pageName)//Entering text in markdown page
+          //cy.get('#save-action-portal > .tooltip > .tooltip-trigger > .button-wrapper').click()
+          cy.get('button').contains('Save').click()
+        }
+    
+    
+    }
+
+       
+       
+             
+     //cy.get('#save-action-portal > .tooltip > .tooltip-trigger > .button-wrapper').click()//click on save button to save markdown text
         cy.window().then((win) => { //stubing the window to open preview Url in same Tab
             cy.stub(win, "open")
               .callsFake((url) => {
@@ -31,12 +64,21 @@ describe("Apimatic Portal Custom Docs Testing",()=>{
               .as("open");
           });
           cy.get("a").contains("Preview").click();
-          cy.get("@open").should("have.been.calledWithMatch","https://www.apimatic.io/api-docs-preview/portal-editor/");
+          cy.get("@open").should("have.been.calledWithMatch","https://app-apimaticio-test-eus.azurewebsites.net/api-docs-preview/");
           cy.get('.btn-get-started').click()
-          cy.log(pageName)
-          cy.get('.rc-menu-item-group-list').find('li').contains(pageName).click();
-          cy.xpath("/html/body/div/div[2]/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/p").contains("This is a testing mark down please Ignore.")
-
-
-    })
+        
+          for(let i=random;i<random+2;i++)
+          {
+          const sectionName = "Sec"+i 
+          cy.waitUntil(()=>cy.get('.rc-menu-submenu-title').contains(sectionName).then(($ele)=>{
+            cy.wrap($ele).click()
+           }))
+          cy.get('.rc-menu-submenu-title').contains(sectionName).click()
+          for(let j=random;j<random+2;j++){
+          const pageName = "Page"+j
+            cy.get('li').contains(pageName).click({force: true}) 
+            cy.get('h1').contains(pageName)
+          }
+          }
+        })
 })
