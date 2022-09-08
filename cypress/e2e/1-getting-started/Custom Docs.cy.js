@@ -73,7 +73,7 @@ describe("Apimatic Portal Custom Docs Testing",()=>{
           cy.waitUntil(()=>cy.get('.rc-menu-submenu-title').contains(sectionName).then(($ele)=>{
             cy.wrap($ele).click()
            }))
-          cy.get('.rc-menu-submenu-title').contains(sectionName).click()
+         // cy.get('.rc-menu-submenu-title').contains(sectionName).click()
           for(let j=random;j<random+2;j++){
           const pageName = "Page"+j
             cy.get('li').contains(pageName).click({force: true}) 

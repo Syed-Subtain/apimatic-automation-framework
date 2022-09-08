@@ -33,6 +33,7 @@ Cypress.Commands.add('versionTest', () => {
 })
 
 Cypress.Commands.add('languageTest', () => {
+    cy.wait(2000)
     cy.xpath('//*[@id="apimatic-widget"]/div/div/div[2]/div[1]/div/div[2]/ul').click() //click to open drop down
     cy.get('.rc-menu.rc-menu-sub.rc-menu-vertical').find('li').its('length').then(len=>{ // find length of all available list items in drop down
     cy.log(len)

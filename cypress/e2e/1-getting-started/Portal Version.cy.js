@@ -9,12 +9,20 @@ describe("Apimatic Portal Testing",()=>{
     it("Should be able to iterate in different Versions of Portal Docs",()=>{
        
         cy.visit(url)
-       /* cy.get('body').then($Body=>
+        var flag
+        cy.get('body').then($Body=>
             {
-                if($Body.find('version-select'))
-                {
-         */
-        var flag = cy.ifElementExist()
+                 if($Body.find('.btn-get-started').length)
+                 cy.get('.btn-get-started').click()
+
+              
+                if($Body.find('#version-select').length)
+                { var flag =true
+                }
+                else flag = false
+              })
+         
+        //var flag = cy.ifElementExist()
         cy.log(flag)
         if(flag)
         {           cy.versionTest() //custom command to test all portal versions
