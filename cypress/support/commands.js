@@ -28,6 +28,7 @@ Cypress.Commands.add('versionTest', () => {
                 const urlText = optionText.replace(/\./g,'_') // replacing '.' with '_' in version text
                 cy.get('#version-select').select(optionText) //selecting the version on the abse of text
                 cy.url().should("include",urlText) // aserting the URL to include Version text
+                cy.log(optionText)
                 cy.languageTest()
             })
 })
@@ -41,6 +42,16 @@ Cypress.Commands.add('languageTest', () => {
    {   cy.xpath('//*[@id="apimatic-widget"]/div/div/div[2]/div[1]/div/div[2]/ul').click({force:true})//click to open dropdown
         cy.xpath('//*[@id="item_0$Menu"]/li['+ k +']').click({force:true})//clicking each element in dropdown items
         cy.wait(2000)
+        cy.get('button').contains('Get SDK')//clicking on Get SDK button if available
+            .should((_) => {})
+            .then(($button) => {
+        if (!$button.length) {
+         // there is no button
+         cy.log('there is no button')}
+        else
+         cy.wrap($button).click({force: true})
+         cy.wait(3000)
+    })
     }
     })
 })

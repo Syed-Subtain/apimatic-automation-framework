@@ -1,4 +1,5 @@
 export const testUrls = [
+  "https://apidocs.peoplehedge.net/v/1_0_2-beta_1.html#/http/how-to-get-started",
     "https://developer.commandalkon.io/v/2_0_0",
   "https://flavorcloud.com/developers/",
   "https://www.apimatic.io/apidocs/ferrariwso/v/1_0",

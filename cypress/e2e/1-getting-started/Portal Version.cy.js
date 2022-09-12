@@ -15,8 +15,15 @@ describe("Apimatic Portal Testing",()=>{
                  if($Body.find('.btn-get-started').length)
                  cy.get('.btn-get-started').click()
 
-              
-                if($Body.find('#version-select').length)
+                cy.get('#version-select').should((_) => {})
+                .then(($VS) => {
+                  if ($VS.length>0) {
+                   // there is no button
+                  cy.versionTest() 
+                  } else
+                 cy.languageTest() 
+                  })
+               /* if($Body.find('#version-select').length >0)
                 { var flag =true
                 }
                 else flag = false
@@ -30,12 +37,12 @@ describe("Apimatic Portal Testing",()=>{
         else{
                     cy.languageTest() //custom command to test all the languages 
 
-                }
+                }*/
             })
       
 
         })
                 
-                  
+      })          
 
 })
