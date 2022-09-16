@@ -49,8 +49,12 @@ Cypress.Commands.add('languageTest', () => {
          // there is no button
          cy.log('there is no button')}
         else
-         cy.wrap($button).click({force: true})
+       {  cy.wrap($button).click({force: true})
+         cy.verifyDownload('.zip', { contains: true })
+        }
          cy.wait(3000)
+
+         
     })
     }
     })
@@ -80,7 +84,7 @@ Cypress.Commands.add( 'login',() =>{
     cy.get('.btn-primary').click()
 })
 
-
+require('cy-verify-downloads').addCustomCommand();
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
