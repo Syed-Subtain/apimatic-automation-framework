@@ -1,6 +1,6 @@
 export const testUrls = [
-  "https://developer.commandalkon.io/v/2_0_0",
-  "https://flavorcloud.com/developers/",
+ // "https://developer.commandalkon.io/v/2_0_0",
+  //"https://flavorcloud.com/developers/",
   "https://www.apimatic.io/apidocs/ferrariwso/v/1_0",
   "https://www.apimatic.io/apidocs/ocxfulfillmentservices/v/1_2_0",
   "https://www.apimatic.io/apidocs/peoplehedge-payments/v/1_0_2-beta_1#/http/how-to-get-started",

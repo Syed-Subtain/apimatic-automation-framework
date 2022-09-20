@@ -50,7 +50,18 @@ Cypress.Commands.add('languageTest', () => {
          cy.log('there is no button')}
         else
        {  cy.wrap($button).click({force: true})
-         cy.verifyDownload('.zip', { contains: true })
+         //cy.verifyDownload('.zip', { contains: true })
+      /*  cy.intercept("GET","/api/api-entities/**").as('DownloadCall')
+        cy.wait('@DownloadCall').then(({response}) => {
+            expect(response.statusCode).to.eq(200)
+           }) */
+            cy.intercept("GET", "/api/api-entities/**").as("SDK");
+            cy.wait("@SDK").then((intercept) => {
+                const { statusCode } = intercept.response;
+                // confirm the status code is 200
+                expect(statusCode).to.eq(200);
+            });
+        
         }
          cy.wait(3000)
 
