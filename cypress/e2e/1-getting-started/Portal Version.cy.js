@@ -7,8 +7,11 @@ Cypress.on("uncaught:exception", (err, runnable) => {  //code to catch all uncau
 describe("Apimatic Portal Testing",()=>{    
       testUrls.forEach((url)=>{
     it("Should be able to iterate in different Versions of Portal Docs",()=>{
-     // cy.intercept({method:'GET',url:'/api/*', hostname:'www.apimatic.io',}).as('DownloadCall')
         cy.visit(url)
+
+        // cy.get('#Email').type('moueen.akhtar+10@apimatic.io')
+        // cy.get('#js-onboarding-password-field').type('Khansab@1')
+        // cy.get('.btn-primary').click()
         var flag
         cy.get('body').then($Body=>
             {
@@ -19,6 +22,7 @@ describe("Apimatic Portal Testing",()=>{
                 .then(($VS) => {
                   if ($VS.length>0) {
                    // there is no button
+                   
                   cy.versionTest() 
                   } else
                  cy.languageTest() 

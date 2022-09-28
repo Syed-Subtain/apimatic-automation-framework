@@ -26,12 +26,12 @@ describe("Apimatic Portal Custom Docs Testing",()=>{
        for(let i=random; i<random+2;i++)
        {
         cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div/button').click({force: true})
-        //cy.get('.h-full > :nth-child(2) > div > .button-wrapper').click()
+      
         cy.get('.item-text').contains('Add Section').click()
         const sectionName = "Sec"+ i
-      // const sectionSlug = "testingslug"+ i 
-        cy.get(':nth-child(1) > .flex-col > .h-8').type(sectionName)
-       // cy.get('.relative > .flex-col > .h-8').type(sectionSlug)
+    
+       // cy.get(':nth-child(1) > .flex-col > .h-8').type(sectionName)
+        cy.get('input[name="name"]').type(sectionName)
         cy.get('button').contains('Done').click({force: true})
         cy.wait(2000)
         //cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[1]/div/div/div[1]/div[1]/div').contains(sectionName).find('button').click()
@@ -42,8 +42,10 @@ describe("Apimatic Portal Custom Docs Testing",()=>{
             cy.get('.item-text').contains('Add Page').click()
 
             const pageName = "Page"+ j
-            cy.get(':nth-child(1) > .flex-col > .h-8').type(pageName)
-            cy.get('.z-10 > .justify-between > :nth-child(2)').click({force: true})
+            //cy.get(':nth-child(1) > .flex-col > .h-8').type(pageName)
+            cy.get('input[name="name"]').type(pageName) 
+            //cy.get('.z-10 > .justify-between > :nth-child(2)').click({force: true})
+            cy.get('button').contains('Done').click()
             cy.get('.toastui-editor.md-mode').type("This is "+sectionName+"and"+pageName)//Entering text in markdown page
           //cy.get('#save-action-portal > .tooltip > .tooltip-trigger > .button-wrapper').click()
           cy.get('button').contains('Save').click()
