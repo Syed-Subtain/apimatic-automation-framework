@@ -51,19 +51,11 @@ languageTest() {
          cy.log('there is no button')}
         else
        {
-        // let Url = cy.url()
-        // cy.log(Url)
-        // cy.url().should('have.string','preview').then(($vrl)=>{
-        //     if($vrl.length>1)
-        //     cy.getSDKPreview($button)
-        //     else
-        //  cy.getSDK($button)
-        // })
+       
         cy.url().then((url) => {
-            // if ($btn.text().includes('test')) 
+            
             if (url.includes('api-docs-preview')) {
-              // do something if it's active
-              cy.log('this is fine')
+              // If its a preview portal 
               cy.getSDKPreview($button)
             }
               else

@@ -8,11 +8,6 @@ describe("Apimatic Portal Testing",()=>{
       testUrls.forEach((url)=>{
     it("Should be able to iterate in different Versions of Portal Docs",()=>{
         cy.visit(url)
-
-        // cy.get('#Email').type('moueen.akhtar+10@apimatic.io')
-        // cy.get('#js-onboarding-password-field').type('Khansab@1')
-        // cy.get('.btn-primary').click()
-        var flag
         cy.get('body').then($Body=>
             {
                  if($Body.find('.btn-get-started').length)
@@ -22,7 +17,6 @@ describe("Apimatic Portal Testing",()=>{
                 .then(($VS) => {
                   if ($VS.length>0) {
                    // there is no button
-                   
                   cy.versionTest() 
                   } else
                  cy.languageTest() 
