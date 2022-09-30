@@ -14,7 +14,6 @@ describe("Apimatic Portal Custom Docs Testing",()=>{
        cy.get('.btn-primary').click()
        cy.get(':nth-child(1) > .api-card > [ng-show="!apiGroupCardUIState.loading "] > .api-body > .team-button-div > .btn-generate').click({force: true})
        cy.wait(4000)
-       //cy.xpath('/html/body/div[1]/div/div/code-gen/div/div[3]/ng-form/div[2]/a').contains('Proceed').click({force: true})
        cy.waitUntil(()=>cy.xpath('/html/body/div[1]/div/div/code-gen/div/div[3]/ng-form/div[2]/a').contains('Proceed').then(($ele)=>{
         cy.wrap($ele).click()
        }))
@@ -30,11 +29,11 @@ describe("Apimatic Portal Custom Docs Testing",()=>{
         cy.get('.item-text').contains('Add Section').click()
         const sectionName = "Sec"+ i
     
-       // cy.get(':nth-child(1) > .flex-col > .h-8').type(sectionName)
+      
         cy.get('input[name="name"]').type(sectionName)
         cy.get('button').contains('Done').click({force: true})
         cy.wait(2000)
-        //cy.xpath('/html/body/div[1]/div[1]/div/div/div[2]/div/div[2]/div[5]/div/div[2]/div/div[1]/div/div/div[1]/div[1]/div').contains(sectionName).find('button').click()
+        
        cy.get('button').contains('Save').click()
         for(let j=random;j<random+2;j++)
         {
@@ -42,22 +41,18 @@ describe("Apimatic Portal Custom Docs Testing",()=>{
             cy.get('.item-text').contains('Add Page').click()
 
             const pageName = "Page"+ j
-            //cy.get(':nth-child(1) > .flex-col > .h-8').type(pageName)
+           
             cy.get('input[name="name"]').type(pageName) 
-            //cy.get('.z-10 > .justify-between > :nth-child(2)').click({force: true})
+            
             cy.get('button').contains('Done').click()
             cy.get('.toastui-editor.md-mode').type("This is "+sectionName+"and"+pageName)//Entering text in markdown page
-          //cy.get('#save-action-portal > .tooltip > .tooltip-trigger > .button-wrapper').click()
+          
           cy.get('button').contains('Save').click()
         }
     
     
     }
 
-       
-       
-             
-     //cy.get('#save-action-portal > .tooltip > .tooltip-trigger > .button-wrapper').click()//click on save button to save markdown text
         cy.window().then((win) => { //stubing the window to open preview Url in same Tab
             cy.stub(win, "open")
               .callsFake((url) => {
