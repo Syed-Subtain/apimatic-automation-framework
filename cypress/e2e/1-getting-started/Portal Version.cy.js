@@ -41,10 +41,10 @@ describe("Apimatic Portal Testing",()=>{
         //   timeout: 30000,
         // }).click({ force: true });
         // cy.get('[ng-show="modalUiState.activeView == \'screen_1\'"]').find("[ng-model=importUrl]").type("https://petstore.swagger.io/v2/swagger.json")
-       
-        cy.get('#apiImportModal').find('input[name="importUrl"]').type("https://petstore.swagger.io/v2/swagger.json")
-          cy.get("[class='btn btn-default']").contains('Import').click()
-          cy.get('#apiImportModal').find('[class="btn btn-default fileinput-exists"]',{timeout:5000}).click()
+        // cy.get('#apiImportModal').contains('Import API')
+        cy.get('#apiImportModal').find('input[name="importUrl"]').type("https://petstore.swagger.io/v2/swagger.json",{force:true})
+          cy.get("[class='btn btn-default']").contains('Import').click({force:true})
+          cy.get('#apiImportModal').find('[class="btn btn-default fileinput-exists"]',{timeout:5000}).click({force:true})
           cy.contains("Validation Summary");
         //find('input[name="importUrl"]').type("https://petstore.swagger.io/v2/swagger.json");
        
