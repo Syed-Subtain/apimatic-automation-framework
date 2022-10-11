@@ -34,7 +34,7 @@ describe("Apimatic Portal Testing",()=>{
         cy.get('#js-onboarding-password-field').type('Welcome@1')
         cy.get('.btn-primary').click()
         cy.wait(7000)
-        cy.get('[ng-click="apiDashboardEventHandlers.importAPICliked()"]').contains('Import API').click({force:true});
+        cy.get('[ng-click="apiDashboardEventHandlers.importAPICliked()"]').contains('Import API').click();
 
         // }).should("have.text", "Import API")
         // cy.get('[ng-click="apiDashboardEventHandlers.importAPICliked()"] > span', {
@@ -44,8 +44,9 @@ describe("Apimatic Portal Testing",()=>{
         // cy.get('#apiImportModal').contains('Import API')
         cy.get('#apiImportModal').find('input[name="importUrl"]').type("https://petstore.swagger.io/v2/swagger.json",{force:true})
           cy.get("[class='btn btn-default']").contains('Import').click({force:true})
-          cy.get('#apiImportModal').find('[class="btn btn-default fileinput-exists"]',{timeout:5000}).click({force:true})
+          cy.get('#apiImportModal').find('[ng-show="targetModal.importLoggingSumamry.success && totalValidationSummaryCount > 0"]',{timeout:5000}).click()
           cy.contains("Validation Summary");
+          cy.get('button').contains('Close').click({force:true})
         //find('input[name="importUrl"]').type("https://petstore.swagger.io/v2/swagger.json");
        
         // cy.wait(2000)
