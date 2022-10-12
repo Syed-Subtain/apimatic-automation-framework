@@ -48,10 +48,5 @@ describe("Apimatic Portal Testing",()=>{
         
       });
 
-      it.only("Import an API by uploading a spec file", () => {
-        cy.visit('https://www.apimatic.io/account/login')
-           
-      });
-
 
 })
