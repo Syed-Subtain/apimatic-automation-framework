@@ -20,6 +20,8 @@
 // -- This is a dual command --
 // Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
 //
+const Email = "syed.subtain@apimatic.io"
+    const Password = "Welcome@1"
 Cypress.Commands.addAll({versionTest() {
     cy.get('#version-select')
             .find('option')//finding all the avilable version in dropdown
@@ -99,14 +101,17 @@ getSDKPreview(button){
            }) 
 
 },
-login(){
+
+login(){  
     
-    cy.visit('https://www.apimatic.io/')
-    cy.get('.mobmenu-right-bt > img').click()
-    cy.get('.menu-item-33390 > a').click()
-    cy.get('#Email').type('syed.subtain@apimatic.io')
-    cy.get('#js-onboarding-password-field').type('Welcome@1')
-    cy.get('.btn-primary').click()
+    cy.session([Email,Password],()=>{
+        cy.visit('/')
+        cy.get('#Email').type(Email)
+          cy.get('#js-onboarding-password-field').type(Password)
+          cy.get('.btn-primary').click()
+          cy.wait(500)
+          cy.url().should('include','dashboard')
+      })       
 },
 })
 
