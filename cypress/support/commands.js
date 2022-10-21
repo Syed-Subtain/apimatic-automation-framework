@@ -113,10 +113,23 @@ login(){
           cy.url().should('include','dashboard')
       })       
 },
+ValidateStringParam(){  
+    cy.log('test')
+    cy.get('.rjsf-field-string').each(($Ele)=>{
+        // var type =""
+        // cy.wrap($Ele).find('.rjsf-base-type').then(($var)=>{
+        //     type=$var.text()
+        //     cy.log(type)
+        // })
+        const type=$Ele.text()
+        cy.log(type)
+          if(type === 'String'){
+          const result = Math.random().toString(36).substring(2,7)
+          cy.wrap($Ele).find('input[type="text"]').type(result).should('have.text',result)
+          }
+    })    
+},
 })
-
-
-require('cy-verify-downloads').addCustomCommand();
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
