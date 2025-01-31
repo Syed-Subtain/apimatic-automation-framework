@@ -1,0 +1,6 @@
+{
+    "OpenAPIDefinitionPaths": [
+        "spotify-open-api"
+    ],
+    "IgnoreValidationErrors": true
+}
