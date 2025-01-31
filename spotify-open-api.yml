@@ -158,7 +158,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - oauth_2_0: []
-  /artists/{id}/albums:
     get:
       tags:
       - Artists
