@@ -3541,7 +3541,6 @@ components:
               Upload images to Spotify on your behalf.
             streaming: |
               Play content and control playback on your other devices.
-  responses:
     Unauthorized:
       description: |
         Bad or expired token. This can happen if the user revoked a token or
@@ -4043,29 +4042,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PagingTrackObject'
-  schemas:
-    LinkedTrackObject:
-      type: object
-      x-spotify-docs-type: LinkedTrackObject
-      properties:
-        external_urls:
-          allOf:
-          - $ref: '#/components/schemas/ExternalUrlObject'
-          description: |
-            Known external URLs for this track.
-        href:
-          type: string
-          description: |
-            A link to the Web API endpoint providing full details of the track.
-        id:
-          type: string
-          description: |
-            The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the track.
-        type:
-          type: string
-          description: |
-            The object type: "track".
-        uri:
+  
           type: string
           description: |
             The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the track.
