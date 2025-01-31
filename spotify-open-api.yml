@@ -21,6 +21,8 @@ tags:
 - name: Chapters
 - name: Episodes
 - name: Library
+- name: Genres
+- name: Markets
 - name: Player
 - name: Playlists
 - name: Search
@@ -28,6 +30,8 @@ tags:
 - name: Tracks
 - name: Users
 paths:
+  /albums:
+    get:
   /albums/{id}:
     get:
       operationId: get-an-album
@@ -3552,6 +3556,11 @@ components:
             properties:
               error:
                 $ref: '#/components/schemas/ErrorObject'
+     Unauthorized2:
+      description: |
+        Bad or expired token. This can happen if the user revoked a token or
+        the access token has expired. You should re-authenticate the user.
+      content:
     Forbidden:
       description: |
         Bad OAuth request (wrong consumer key, bad nonce, expired
