@@ -18,9 +18,6 @@ servers:
 - url: https://api.spotify.com/v1
 tags:
 - name: Albums
-- name: Artists
-- name: Audiobooks
-- name: Categories
 - name: Chapters
 - name: Episodes
 - name: Library
@@ -158,6 +155,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - oauth_2_0: []
+  /artists/{id}/albums:
     get:
       tags:
       - Artists
