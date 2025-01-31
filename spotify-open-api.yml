@@ -21,8 +21,6 @@ tags:
 - name: Chapters
 - name: Episodes
 - name: Library
-- name: Genres
-- name: Markets
 - name: Player
 - name: Playlists
 - name: Search
